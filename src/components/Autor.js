@@ -43,9 +43,6 @@ export class FormularioAutor extends Component {
       senha: ''
     }
     this.cadastrarAutor = this.cadastrarAutor.bind(this)
-    this.setNome = this.setNome.bind(this)
-    this.setEmail = this.setEmail.bind(this)
-    this.setSenha = this.setSenha.bind(this)
   }
   cadastrarAutor(event) {
     event.preventDefault()
@@ -76,17 +73,8 @@ export class FormularioAutor extends Component {
         console.log(err)
       })
   }
-
-  setNome(event) {
-    this.setState({ nome: event.target.value })
-  }
-
-  setEmail(event) {
-    this.setState({ email: event.target.value })
-  }
-
-  setSenha(event) {
-    this.setState({ senha: event.target.value })
+  alterarStateDoCampo(campo, event) {
+    this.setState({ [campo]: event.target.value })
   }
   render() {
     return (
@@ -98,21 +86,21 @@ export class FormularioAutor extends Component {
         <fieldset>
           <InputCustomizado
             value={this.state.nome}
-            onChange={this.setNome}
+            onChange={this.alterarStateDoCampo.bind(this, 'nome')}
             type="text"
             id="nome"
             placeholder="Nome"
           />
           <InputCustomizado
             value={this.state.email}
-            onChange={this.setEmail}
+            onChange={this.alterarStateDoCampo.bind(this, 'email')}
             type="email"
             id="email"
             placeholder="E-mail"
           />
           <InputCustomizado
             value={this.state.senha}
-            onChange={this.setSenha}
+            onChange={this.alterarStateDoCampo.bind(this, 'senha')}
             type="password"
             id="senha"
             placeholder="Senha"
@@ -139,7 +127,7 @@ export default class AutorBox extends Component {
         this.setState({ autores: res })
       })
   }
-  componentDidMount() {
+  componentWillMount() {
     this.atualizarAutores()
     PubSub.subscribe('novoAutorCadastrado', (topico, objeto) => {
       this.atualizarAutores()
