@@ -96,8 +96,6 @@ export class FormularioAutor extends Component {
         method="post"
       >
         <fieldset>
-          <legend>Cadastro de autor</legend>
-
           <InputCustomizado
             value={this.state.nome}
             onChange={this.setNome}
@@ -119,8 +117,7 @@ export class FormularioAutor extends Component {
             id="senha"
             placeholder="Senha"
           />
-          <button type="submit" className="pure-button pure-button-primary">Cadastrar</button>
-
+          <button type="submit" className="pure-button pure-button-primary ">Cadastrar</button>
         </fieldset>
       </form>
     )
@@ -151,8 +148,13 @@ export default class AutorBox extends Component {
   render() {
     return (
       <div>
-        <FormularioAutor />
-        <TabelaAutores autores={this.state.autores} />
+        <div className="header">
+          <h1>Cadastro de autores</h1>
+        </div>
+        <div id="content" className="content">
+          <FormularioAutor />
+          <TabelaAutores autores={this.state.autores} />
+        </div>
       </div>
     )
   }
